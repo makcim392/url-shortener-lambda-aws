@@ -25,6 +25,10 @@ This is a simple REST API that takes a URL and returns a short URL.
 }
 ```
 
+# Screenshots
+
+![img.png](img.png)
+
 # License
 
 MIT License © [Rocketseat](https://github.com/rocketseat-education/serverless-rest-api-example)
