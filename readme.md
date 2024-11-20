@@ -1,6 +1,7 @@
 # Description
 
-This is a simple REST API that takes a URL and returns a short URL.
+This is a simple REST API that takes a URL and returns a short URL. 
+It uses AWS Lambda and S3 to store the short URLs.
 
 # Building
 
