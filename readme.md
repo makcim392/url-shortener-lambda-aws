@@ -2,6 +2,22 @@
 
 This is a simple REST API that takes a URL and returns a short URL.
 
+# Building
+
+To build the project, run the following command:
+
+```
+mvn clean
+```
+
+```
+mvn package
+```
+
+# Deploying
+
+To deploy the project, upload the generated JAR file to AWS Lambda.
+
 # Endpoints
 
 ## POST /

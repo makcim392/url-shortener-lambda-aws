@@ -4,7 +4,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +39,16 @@ public class Main implements RequestHandler<Map<String, Object>, Map<String, Str
 
         try {
             String urlDataJSON = objectMapper.writeValueAsString(urlData);
+
+            PutObjectRequest request = PutObjectRequest.builder()
+                    .bucket("url-shortener-storage-lambda-example")
+                    .key(shortURLCode + ".json")
+                    .build();
+
+            s3Client.putObject(request, RequestBody.fromString(urlDataJSON));
             
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error saving data to S3: " + e.getMessage(), e);
         }
 
         Map<String, String> response = new HashMap<>();
