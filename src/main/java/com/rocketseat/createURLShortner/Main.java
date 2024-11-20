@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import software.amazon.awssdk.services.s3.S3Client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class Main implements RequestHandler<Map<String, Object>, Map<String, String>> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final S3Client s3Client =  S3Client.create();
 
     @Override
     public Map<String, String> handleRequest(Map<String, Object> input, Context context) {
@@ -26,8 +29,18 @@ public class Main implements RequestHandler<Map<String, Object>, Map<String, Str
 
         String originalUrl = bodyMap.get("originalUrl");
         String expirationTime = bodyMap.get("expirationTime");
+        long expirationTimeInSeconds = Long.parseLong(expirationTime) * 3600;
 
         String shortURLCode = UUID.randomUUID().toString().substring(0, 8);
+
+        UrlData urlData = new UrlData(originalUrl, expirationTimeInSeconds);
+
+        try {
+            String urlDataJSON = objectMapper.writeValueAsString(urlData);
+            
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         Map<String, String> response = new HashMap<>();
         response.put("code", shortURLCode);
