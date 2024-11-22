@@ -109,6 +109,26 @@ This indicates that your Lambda function lacks the necessary permissions to inte
 
 After attaching the policy, your Lambda function should be able to perform the authorized operations on the specified S3 bucket. If issues persist, check the CloudWatch logs for detailed error messages.
 
-# License
+# 🚀 Next Features to Be Implemented
 
-MIT License © [Rocketseat](https://github.com/rocketseat-education/serverless-rest-api-example)
+This section outlines upcoming features and enhancements planned for the project:
+
+1. **Add Cache with TTL for Responses**
+   - Implement a caching mechanism to store frequently accessed responses.
+   - Include a time-to-live (TTL) parameter to automatically expire stale cache entries.
+
+2. **Idempotency for Created URLs**
+   - Ensure idempotent operations for URL creation.
+   - Prevent duplicate entries by checking if a URL has already been processed.
+
+3. **Sanitize and Validate Expiration Dates**
+   - Implement input validation to ensure expiration dates are correct.
+   - Add checks to handle cases where expiration dates have already passed.
+
+4. **Clean Expired Resources from S3**
+   - Automatically identify and remove expired resources from S3.
+   - Integrate the cleanup process with the expiration validation logic.
+
+5. **CloudWatch Monitoring with Periodic Jobs**
+   - Set up AWS CloudWatch to monitor key application metrics and logs.
+   - Create a scheduled job to periodically perform maintenance tasks, such as cleaning expired data and monitoring system health.
